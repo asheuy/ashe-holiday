@@ -405,38 +405,114 @@ html.locked body > *:not(.gate) {
   overflow: hidden;
   padding: 24px;
   color: #fffaf0;
-  background:
-    radial-gradient(circle at 78% 22%, rgba(220, 174, 82, 0.28), transparent 26%),
-    linear-gradient(150deg, #08190f 0%, #123324 52%, #1d4331 100%);
+  background: #050907;
 }
 
 .gate[hidden] {
   display: none;
 }
 
-.gate::before {
+/* Cave scenery */
+
+.cave {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cave-depth {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 62% 52% at 50% 56%, rgba(220, 174, 82, 0.2), transparent 70%),
+    radial-gradient(ellipse 42% 34% at 50% 58%, rgba(255, 214, 138, 0.16), transparent 72%),
+    radial-gradient(ellipse 120% 90% at 50% 50%, #14231b 0%, #0a120d 46%, #050907 78%);
+}
+
+/* Damp rock texture on the walls. */
+.cave-depth::after {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.6) 0 1px, transparent 2px),
-    radial-gradient(circle at 68% 12%, rgba(255, 255, 255, 0.4) 0 1px, transparent 2px),
-    radial-gradient(circle at 88% 42%, rgba(255, 255, 255, 0.3) 0 1px, transparent 2px);
-  background-size: 200px 200px, 250px 250px, 150px 150px;
+    radial-gradient(ellipse 18% 9% at 14% 62%, rgba(255, 255, 255, 0.05), transparent 70%),
+    radial-gradient(ellipse 14% 7% at 86% 55%, rgba(255, 255, 255, 0.045), transparent 70%),
+    radial-gradient(ellipse 22% 12% at 30% 84%, rgba(0, 0, 0, 0.55), transparent 70%),
+    radial-gradient(ellipse 20% 11% at 72% 88%, rgba(0, 0, 0, 0.5), transparent 70%);
   content: "";
-  opacity: 0.3;
+}
+
+.cave-torch {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 46% 40% at 50% 54%,
+    rgba(255, 190, 92, 0.22),
+    transparent 68%
+  );
+  animation: torch-flicker 5.5s ease-in-out infinite;
+}
+
+@keyframes torch-flicker {
+  0%, 100% { opacity: 0.82; }
+  28% { opacity: 1; }
+  46% { opacity: 0.7; }
+  64% { opacity: 0.95; }
+  82% { opacity: 0.76; }
+}
+
+.cave-rock {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Keeps the cave feel on narrow screens where the rock frame is cropped. */
+.cave-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 78% 68% at 50% 52%,
+    transparent 40%,
+    rgba(3, 6, 4, 0.62) 82%,
+    rgba(3, 6, 4, 0.92) 100%
+  );
+}
+
+/* Waitomo-style glowworms clinging to the roof. */
+.glowworms {
+  position: absolute;
+  inset: 0;
+}
+
+.glowworms span {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #a8f0ff;
+  box-shadow: 0 0 7px 2px rgba(126, 226, 245, 0.85);
+  animation: glow-pulse 4.4s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.25); }
 }
 
 .gate-inner {
   position: relative;
   z-index: 2;
   width: min(520px, 100%);
+  padding: 34px 28px;
   text-align: center;
 }
 
 .gate-mark svg {
-  width: 62px;
-  height: 62px;
-  margin-bottom: 24px;
+  width: 66px;
+  height: 66px;
+  margin-bottom: 22px;
+  filter: drop-shadow(0 0 16px rgba(255, 200, 110, 0.55));
 }
 
 .gate-eyebrow {
@@ -451,10 +527,11 @@ html.locked body > *:not(.gate) {
 .gate-title {
   margin-bottom: 16px;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.6rem, 7vw, 4.2rem);
+  font-size: clamp(2.5rem, 6.4vw, 4rem);
   font-weight: 500;
   letter-spacing: -0.045em;
   line-height: 1;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.8);
 }
 
 .gate-copy {
@@ -462,6 +539,7 @@ html.locked body > *:not(.gate) {
   margin: 0 auto 32px;
   color: rgba(255, 250, 240, 0.72);
   font-size: 1rem;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.9);
 }
 
 .gate-form {
@@ -476,21 +554,21 @@ html.locked body > *:not(.gate) {
   min-height: 54px;
   padding: 0 20px;
   color: #fffaf0;
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(220, 174, 82, 0.32);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(6, 12, 9, 0.66);
   font-family: inherit;
   font-size: 1rem;
   transition: border-color 180ms ease, background 180ms ease;
 }
 
 .gate-form input::placeholder {
-  color: rgba(255, 250, 240, 0.42);
+  color: rgba(255, 250, 240, 0.4);
 }
 
 .gate-form input:focus-visible {
   border-color: var(--gold);
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(12, 22, 16, 0.85);
   outline: 2px solid rgba(220, 174, 82, 0.45);
   outline-offset: 2px;
 }
@@ -498,10 +576,11 @@ html.locked body > *:not(.gate) {
 .gate-form button {
   min-height: 54px;
   padding: 0 30px;
-  color: var(--ink);
+  color: #1b1206;
   border: 0;
   border-radius: 999px;
-  background: var(--gold);
+  background: linear-gradient(180deg, #f0c368, var(--gold));
+  box-shadow: 0 0 26px rgba(220, 174, 82, 0.35);
   font-family: inherit;
   font-size: 0.78rem;
   font-weight: 800;
@@ -512,7 +591,7 @@ html.locked body > *:not(.gate) {
 }
 
 .gate-form button:hover {
-  filter: brightness(1.07);
+  filter: brightness(1.08);
   transform: translateY(-2px);
 }
 
@@ -520,6 +599,7 @@ html.locked body > *:not(.gate) {
   margin: 18px 0 0;
   color: #f0a58c;
   font-size: 0.87rem;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
 }
 
 .gate.shake .gate-inner {
@@ -534,17 +614,6 @@ html.locked body > *:not(.gate) {
   80% { transform: translateX(4px); }
 }
 
-.gate-mountains {
-  position: absolute;
-  right: -5%;
-  bottom: -2px;
-  left: -5%;
-  height: 210px;
-  background: #06120b;
-  clip-path: polygon(0 100%, 9% 58%, 19% 78%, 30% 26%, 41% 66%, 52% 38%, 63% 72%, 75% 12%, 84% 56%, 92% 34%, 100% 72%, 100% 100%);
-  opacity: 0.85;
-}
-
 @media (max-width: 680px) {
   .gate-form button {
     flex: 1 1 100%;
@@ -552,8 +621,14 @@ html.locked body > *:not(.gate) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .gate.shake .gate-inner {
+  .gate.shake .gate-inner,
+  .cave-torch,
+  .glowworms span {
     animation: none;
+  }
+
+  .glowworms span {
+    opacity: 0.85;
   }
 }
 

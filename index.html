@@ -24,21 +24,107 @@
   </head>
   <body>
     <div class="gate" id="gate" hidden>
+      <div class="cave" aria-hidden="true">
+        <div class="cave-depth"></div>
+        <div class="cave-torch"></div>
+
+        <svg
+          class="cave-rock"
+          viewBox="0 0 1200 800"
+          preserveAspectRatio="xMidYMid slice"
+          role="presentation"
+        >
+          <defs>
+            <radialGradient id="hollow" cx="50%" cy="54%" r="58%">
+              <stop offset="0%" stop-color="#4a3c24" />
+              <stop offset="32%" stop-color="#25301f" />
+              <stop offset="70%" stop-color="#121a13" />
+              <stop offset="100%" stop-color="#080e0a" />
+            </radialGradient>
+            <filter id="rimblur" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="6" />
+            </filter>
+            <pattern id="grain" width="360" height="360" patternUnits="userSpaceOnUse">
+              <rect width="360" height="360" fill="none" />
+              <circle cx="54" cy="72" r="70" fill="rgba(255,255,255,.007)" />
+              <circle cx="248" cy="188" r="92" fill="rgba(0,0,0,.05)" />
+              <circle cx="140" cy="296" r="58" fill="rgba(255,255,255,.005)" />
+              <circle cx="322" cy="46" r="48" fill="rgba(0,0,0,.04)" />
+              <circle cx="196" cy="18" r="36" fill="rgba(255,255,255,.004)" />
+            </pattern>
+            <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0b120e" />
+              <stop offset="55%" stop-color="#070c09" />
+              <stop offset="100%" stop-color="#040705" />
+            </linearGradient>
+          </defs>
+
+          <rect width="1200" height="800" fill="url(#hollow)" />
+
+          <!-- Rock strata, for texture behind the hollow. -->
+          <g stroke="rgba(255,236,196,.035)" stroke-width="2" fill="none">
+            <path d="M120 96q300 54 640 12t440 40" />
+            <path d="M0 210q340 66 700 8t500 44" />
+            <path d="M60 690q320-58 640-14t500-30" />
+            <path d="M0 756q300-46 660-6t540-36" />
+          </g>
+
+          <!-- Rock mass with an irregular hollow cut out of it. -->
+          <path
+            fill="url(#rock)"
+            fill-rule="evenodd"
+            d="M0 0h1200v800H0Z M250 400 L285 330 L300 430 L315 320 L355 285 L372 415 L390 275 L430 240 L448 380 L466 232 L505 210 L523 350 L541 205 L580 190 L598 330 L616 188 L655 195 L673 355 L691 200 L730 215 L748 340 L766 222 L805 250 L822 390 L840 260 L875 295 L890 400 L905 305 L950 380 L985 450 L995 520 L980 585 L950 640 L905 675 L888 585 L870 680 L820 690 L802 600 L784 692 L735 698 L716 610 L698 700 L650 702 L632 600 L614 703 L565 700 L546 620 L528 698 L480 694 L462 605 L444 690 L395 682 L377 600 L359 678 L310 655 L265 600 L240 520 L245 450 Z"
+          />
+
+          <path fill="url(#grain)" fill-rule="evenodd" d="M0 0h1200v800H0Z M250 400 L285 330 L300 430 L315 320 L355 285 L372 415 L390 275 L430 240 L448 380 L466 232 L505 210 L523 350 L541 205 L580 190 L598 330 L616 188 L655 195 L673 355 L691 200 L730 215 L748 340 L766 222 L805 250 L822 390 L840 260 L875 295 L890 400 L905 305 L950 380 L985 450 L995 520 L980 585 L950 640 L905 675 L888 585 L870 680 L820 690 L802 600 L784 692 L735 698 L716 610 L698 700 L650 702 L632 600 L614 703 L565 700 L546 620 L528 698 L480 694 L462 605 L444 690 L395 682 L377 600 L359 678 L310 655 L265 600 L240 520 L245 450 Z" />
+
+          <!-- Rim light where the hollow meets the rock. -->
+          <path
+            fill="none"
+            stroke="rgba(220,174,82,.13)"
+            stroke-width="7"
+            filter="url(#rimblur)"
+            d="M250 400 L285 330 L300 430 L315 320 L355 285 L372 415 L390 275 L430 240 L448 380 L466 232 L505 210 L523 350 L541 205 L580 190 L598 330 L616 188 L655 195 L673 355 L691 200 L730 215 L748 340 L766 222 L805 250 L822 390 L840 260 L875 295 L890 400 L905 305 L950 380 L985 450 L995 520 L980 585 L950 640 L905 675 L888 585 L870 680 L820 690 L802 600 L784 692 L735 698 L716 610 L698 700 L650 702 L632 600 L614 703 L565 700 L546 620 L528 698 L480 694 L462 605 L444 690 L395 682 L377 600 L359 678 L310 655 L265 600 L240 520 L245 450 Z"
+          />
+        </svg>
+
+        <div class="cave-vignette"></div>
+
+        <div class="glowworms">
+          <span style="left: 26%; top: 29%; animation-delay: 0s"></span>
+          <span style="left: 31%; top: 34%; animation-delay: 1.4s"></span>
+          <span style="left: 36%; top: 27%; animation-delay: 2.6s"></span>
+          <span style="left: 41%; top: 38%; animation-delay: 0.7s"></span>
+          <span style="left: 46%; top: 30%; animation-delay: 3.1s"></span>
+          <span style="left: 51%; top: 35%; animation-delay: 1.9s"></span>
+          <span style="left: 56%; top: 28%; animation-delay: 2.2s"></span>
+          <span style="left: 61%; top: 37%; animation-delay: 0.4s"></span>
+          <span style="left: 66%; top: 31%; animation-delay: 3.6s"></span>
+          <span style="left: 71%; top: 34%; animation-delay: 1.1s"></span>
+          <span style="left: 29%; top: 42%; animation-delay: 2.9s"></span>
+          <span style="left: 44%; top: 44%; animation-delay: 0.2s"></span>
+          <span style="left: 59%; top: 43%; animation-delay: 2.4s"></span>
+          <span style="left: 69%; top: 41%; animation-delay: 1.6s"></span>
+        </div>
+      </div>
+
       <div class="gate-inner">
         <div class="gate-mark" aria-hidden="true">
           <svg viewBox="0 0 64 64" role="presentation">
-            <circle cx="32" cy="32" r="29" fill="none" stroke="#dcae52" stroke-width="2" opacity=".55" />
-            <path d="M32 14a10 10 0 0 1 10 10v6h-4v-6a6 6 0 0 0-12 0v6h-4v-6a10 10 0 0 1 10-10z" fill="#dcae52" />
-            <rect x="20" y="30" width="24" height="20" rx="4" fill="#dcae52" />
-            <circle cx="32" cy="38" r="3" fill="#17233d" />
-            <rect x="30.6" y="39" width="2.8" height="7" rx="1.4" fill="#17233d" />
+            <ellipse cx="32" cy="54" rx="17" ry="4" fill="#dcae52" opacity=".22" />
+            <path d="M26 12h12l3 6H23z" fill="#c2903c" />
+            <rect x="30" y="4" width="4" height="9" rx="2" fill="#c2903c" />
+            <path d="M23 18h18l4 26a13 13 0 0 1-26 0z" fill="#dcae52" opacity=".28" />
+            <path d="M32 22c5 6 7 10 7 14a7 7 0 0 1-14 0c0-4 2-8 7-14z" fill="#ffd98a" />
+            <path d="M32 28c2.6 3.4 3.6 5.6 3.6 8a3.6 3.6 0 0 1-7.2 0c0-2.4 1-4.6 3.6-8z" fill="#fff6dd" />
+            <path d="M23 18h18l1 6H22z" fill="#c2903c" />
           </svg>
         </div>
         <p class="gate-eyebrow">Speak, friend</p>
-        <h1 class="gate-title">The gate is closed</h1>
+        <h1 class="gate-title">The cave is sealed</h1>
         <p class="gate-copy">
-          This journey is shared with a chosen few. Enter the passphrase to
-          continue.
+          Beyond this hollow lies the road through Middle-earth. Whisper the
+          passphrase and the stone will open.
         </p>
 
         <form class="gate-form" id="gate-form" autocomplete="off">
@@ -47,24 +133,23 @@
             id="gate-input"
             name="passphrase"
             type="password"
-            placeholder="Enter passphrase"
+            placeholder="Whisper the passphrase"
             autocomplete="current-password"
             aria-describedby="gate-error"
             required
           />
-          <button type="submit">Enter</button>
+          <button type="submit">Open</button>
         </form>
 
         <p class="gate-error" id="gate-error" role="alert" hidden>
-          That passphrase is not known to the gate. Try again.
+          The stone does not stir. Try another word.
         </p>
         <noscript>
           <p class="gate-error" hidden="false">
-            JavaScript is required to open this gate.
+            JavaScript is required to open this cave.
           </p>
         </noscript>
       </div>
-      <div class="gate-mountains" aria-hidden="true"></div>
     </div>
 
     <header class="hero" id="top">
